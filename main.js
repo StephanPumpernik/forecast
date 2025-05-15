@@ -52,7 +52,7 @@ async function showForecast(latlng) {
     //Popup erzeugen
     let details = jsondata.properties.timeseries[0].data.instant.details;
     let timestamp = new Date(jsondata.properties.meta.updated_at);
-    let markup =`
+    let markup = `
     <h3>Wettervorhersage für ${timestamp.toLocaleString()}</h3>
     <small>Ort: ${placeName}</small>
     <ul>
@@ -63,19 +63,19 @@ async function showForecast(latlng) {
     <li> Windrichtung(°): ${details.wind_from_direction}</li>
     <li>Windgeschwindigkeit (km/h):${details.wind_speed}</li>
     </ul>
-    `; 
+    `;
 
     //Wettericons für die nächste 24h in 3h Schritten
-    for (let i=0; i <=24; i+=3) {
+    for (let i = 0; i <= 24; i += 3) {
         let symbol = jsondata.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
         let time = new Date(jsondata.properties.timeseries[i].time);
         markup += `<img src="icons/${symbol}.svg" style="width:32px" title="${time.toLocaleString()}">`;
     }
-    
+
     //links zu den jsondaten
     markup += `
     <p>
-        <a href= "${url}" target="forecast">Daten downloaden</a>
+        <a href= "${url}" target="forecast">Daten downloaden</a> |
         <a href= "${osmUrl}" target="forecast"> OSM Details zum Ort</a>
     </p>
     `
