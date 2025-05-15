@@ -55,6 +55,11 @@ async function showForecast(latlng) {
     </ul>
     `; 
 
+    //Wettericons für die nächste 24h in 3h Schritten
+    for (let i=0; i <=24; i+=3) {
+        let symbol = jsondata.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
+        console.log(symbol);
+    }
     
     L.popup([
         latlng.lat, latlng.lng
