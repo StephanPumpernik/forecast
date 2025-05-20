@@ -99,18 +99,36 @@ map.fire("click", {
     }
 })
 
-//windpfeile
+// Windpfeile
 async function loadWind(url) {
-
     let response = await fetch(url);
     let jsondata = await response.json();
+    console.log(jsondata)
+
 
     L.velocityLayer({
         displayValues: true,
-         displayOptions: {
-      velocityType: "Velocity",
-      position: "bottomleft",
-      emptyString: "No velocity data"
-    },
-    })
+        displayOptions: {
+            // label prefix
+            velocityType: "",
+
+            // leaflet control position
+            position: "bottomright",
+
+            // no data at cursor
+            emptyString: "keine Daten vorhanden",
+
+            //  one of: ['ms', 'k/h', 'mph', 'kt']
+            speedUnit: "km/h",
+
+            // direction label prefix
+            directionString: "Windrichtung",
+
+            // speed label prefix
+            speedString: "Windgeschwindigkeit",
+        },
+        data: jsondata, // see demo/*.json, or wind-js-server for example data service
+    }).addTo(overlays.wind);
 }
+
+loadWind("https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json");
