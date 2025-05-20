@@ -98,3 +98,19 @@ map.fire("click", {
         lng: ibk.lng,
     }
 })
+
+//windpfeile
+async function loadWind(url) {
+
+    let response = await fetch(url);
+    let jsondata = await response.json();
+
+    L.velocityLayer({
+        displayValues: true,
+         displayOptions: {
+      velocityType: "Velocity",
+      position: "bottomleft",
+      emptyString: "No velocity data"
+    },
+    })
+}
